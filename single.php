@@ -37,11 +37,7 @@ if( have_posts() ):
                                     <div class="down-content">
                                         <span><?php the_category(); ?></span>
                                         <a href="<?php the_permalink(); ?>"><h4><?php the_title(); ?></h4></a>
-                                        <ul class="post-info">
-                                            <li><a href="#"><?php the_author(); ?></a></li>
-                                            <li><a href="#"><?php the_date(); ?></a></li>
-                                            <li><a href="#"><?php comments_number(); ?></a></li>
-                                        </ul>
+                                        <?php get_template_part('template-parts/post', 'info') ?>
                                         <?php the_content(); ?>
                                         <div class="row">
                                             <div class="col-6">

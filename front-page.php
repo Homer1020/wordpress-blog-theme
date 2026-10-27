@@ -131,11 +131,7 @@
                         <div class="down-content">
                           <span><?php the_category(); ?></span>
                           <a href="<?= esc_url(the_permalink()); ?>"><h4><?php the_title(); ?></h4></a>
-                          <ul class="post-info">
-                            <li><a href="#"><?php the_author(); ?></a></li>
-                            <li><a href="#"><?php the_date(); ?></a></li>
-                            <li><a href="#"><?php comments_number(); ?></a></li>
-                          </ul>
+                          <?php get_template_part('template-parts/post', 'info') ?>
                           <?php the_excerpt(); ?>
                           <!-- <p>Stand Blog is a free HTML CSS template for your CMS theme. You can easily adapt or customize it for any kind of CMS or website builder. You are allowed to use it for your business. You are NOT allowed to re-distribute the template ZIP file on any template collection site for the download purpose. <a rel="nofollow" href="https://templatemo.com/contact" target="_parent">Contact TemplateMo</a> for more info. Thank you.</p> -->
                           <div class="post-options">
