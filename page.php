@@ -7,8 +7,8 @@
           <div class="row">
             <div class="col-lg-12">
               <div class="text-content">
-                <h4>about us</h4>
-                <h2>more about us!</h2>
+                <h4>Conócenos</h4>
+                <h2><?php the_title(); ?></h2>
               </div>
             </div>
           </div>
@@ -24,11 +24,14 @@
       	
         <div class="row">
           <div class="col-lg-12">
-            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/about-us.jpg" alt="">
-            <p>Please tell your friends about TemplateMo website. Thank you. You can browse through different categories of templates such as <a rel="nofollow" href="https://templatemo.com/tag/business" target="_parent">business</a>, <a rel="nofollow" href="https://templatemo.com/tag/portfolio" target="_parent">portfolio</a>, <a rel="nofollow" href="https://templatemo.com/tag/restaurant" target="_parent">restaurant</a>, etc. Pellentesque quis luctus libero. Maecenas pretium molestie erat, ac tincidunt leo gravida ac. Cras ullamcorper eu ipsum eu sollicitudin. Fusce vitae commodo turpis. Integer ullamcorper purus nec justo mollis fermentum. Nunc imperdiet erat nec lacinia laoreet. <br><br>Maecenas faucibus ullamcorper felis vitae finibus. Nullam at quam ut lacus aliquam tempor vel sed ipsum. Donec pellentesque tincidunt imperdiet. Mauris sit amet justo vulputate, cursus massa congue, vestibulum odio. Aenean elit nunc, gravida in erat sit amet, feugiat viverra leo. Phasellus interdum, diam commodo egestas rhoncus, turpis nisi consectetur nibh, in vehicula eros orci vel neque.</p>
+            <?php if(has_post_thumbnail()) {
+              the_post_thumbnail('full');
+            } ?>
+            
+            <?php the_content(); ?>
           </div>
         </div>
-        
+
         <div class="row">
           <div class="col-lg-6">
           <h4>Two-One Donec porttitor augue</h4>
