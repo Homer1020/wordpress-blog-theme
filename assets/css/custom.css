@@ -1,0 +1,22 @@
+ul.page-numbers li span {
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    text-align: center;
+    line-height: 50px;
+    font-size: 15px;
+    color: #7a7a7a;
+    border: 1px solid #eee;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+ul.page-numbers li span.current {
+    background-color: #f48840;
+    border-color: #f48840;
+    color: #fff;
+}
+
+.blog-posts .down-content a {
+    color: inherit;
+}

@@ -63,13 +63,7 @@ if( have_posts() ):
                     </div>
                 </div>
                 <div class="col-lg-4">
-                    <div class="sidebar">
-                        <div class="row">
-                            <?php if ( is_active_sidebar('main-sidebar') ) : ?>
-                            <?php dynamic_sidebar('main-sidebar'); ?>
-                            <?php endif; ?>
-                        </div>
-                    </div>
+                    <?php get_template_part('template-parts/post', 'sidebar') ?>
                 </div>
             </div>
         </div>

@@ -40,6 +40,14 @@ function hmtm_enqueue_styles() {
         null,
         'all'
     );
+
+    wp_enqueue_style(
+        'custom',
+        get_template_directory_uri() . '/assets/css/custom.css',
+        array('bootstrap', 'flex-slider', 'owl', 'fontawesome', 'templatemo-stand-blog'),
+        null,
+        'all'
+    );
 }
 
 function hmtm_enqueue_scripts() {
@@ -183,3 +191,34 @@ function hmtm_clase_active_enlace($atts, $item, $args) {
     return $atts;
 }
 add_filter('nav_menu_link_attributes', 'hmtm_clase_active_enlace', 10, 3);
+
+function hmtm_html_pagination_markup( $template, $class ) {
+    // 1. Definimos tu clase personalizada para el contenedor <nav>
+    // Reemplaza 'mi-clase-personalizada' por la que tú quieras
+    $clase_personalizada = 'mi-clase-personalizada'; 
+
+    // 2. Creamos la nueva estructura con <ul> y <li>
+    $template = '
+    <nav class="navigation ' . esc_attr( $class ) . ' ' . esc_attr( $clase_personalizada ) . '" aria-label="%4$s">
+        <h2 class="screen-reader-text">%2$s</h2>
+        <ul class="page-numbers">
+            %3$s
+        </ul>
+    </nav>';
+
+    return $template;
+}
+add_filter( 'navigation_markup_template', 'hmtm_html_pagination_markup', 10, 2 );
+
+function hmtm_pagination_anchors( $r, $args ) {
+    // Reemplazamos los saltos de línea
+    $r = str_replace( array( "\r", "\n" ), '', $r );
+
+    // Buscamos cada enlace (page-numbers) y lo envolvemos en un <li>
+    if ( ! empty( $r ) ) {
+        $r = preg_replace( '/(<a|<span)[^>]*class="[^"]*page-numbers[^"]*"[^>]*>.*?<\/(a|span)>/', '<li class="pagination-item">$0</li>', $r );
+    }
+
+    return $r;
+}
+add_filter( 'paginate_links_output', 'hmtm_pagination_anchors', 10, 2 );
