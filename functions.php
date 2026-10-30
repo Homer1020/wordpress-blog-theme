@@ -1,5 +1,7 @@
 <?php
 
+require_once get_parent_theme_file_path( 'inc/custom-fields.php' );
+
 function hmtm_enqueue_styles() {
     wp_enqueue_style(
         'bootstrap',

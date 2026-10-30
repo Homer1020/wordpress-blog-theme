@@ -2,106 +2,62 @@
     <!-- Page Content -->
     <!-- Banner Starts Here -->
     <div class="main-banner header-text">
-      <div class="container-fluid">
-        <div class="owl-banner owl-carousel">
-          <div class="item">
-            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/banner-item-01.jpg" alt="">
-            <div class="item-content">
-              <div class="main-content">
-                <div class="meta-category">
-                  <span>Fashion</span>
+        <?php 
+        $sliderPosts = get_field('publicaciones_slider');
+        
+        if ($sliderPosts):
+            // 1. Extraer todos los IDs de los posts del slider
+            $post_ids = wp_list_pluck($sliderPosts, 'ID');
+            
+            // 2. Precargar en caché la información básica, metadatos y términos (categorías/etiquetas) 
+            // de TODOS los posts de golpe (Evita N+1 para posts y taxonomías)
+            _prime_post_caches($post_ids, true, true);
+            
+            // 3. Extraer los IDs de los autores únicos para precargar sus datos de usuario de golpe
+            $author_ids = array_unique(wp_list_pluck($sliderPosts, 'post_author'));
+            if (!empty($author_ids)) {
+                cache_users($author_ids);
+            }
+        ?>
+          <div class="container-fluid">
+            <div class="owl-banner owl-carousel">
+              <?php foreach($sliderPosts as $sliderPost): 
+                  $postID = $sliderPost->ID;
+                  
+                  // Obtener la URL permanente del post de forma dinámica
+                  $permalink = get_permalink($postID);
+                  
+                  // Obtener el nombre del autor (ya está en caché gracias a cache_users)
+                  $author_name = get_the_author_meta('display_name', $sliderPost->post_author);
+                  
+                  // Obtener la fecha formateada (puedes usar el formato de WordPress)
+                  $post_date = get_the_date('', $postID);
+                  
+                  // Obtener las categorías del post (ej. la primera categoría o un listado)
+                  $categories = get_the_category($postID);
+                  $category_name = !empty($categories) ? $categories[0]->name : 'Sin categoría';
+                  $category_link = !empty($categories) ? get_category_link($categories[0]->term_id) : '#';
+              ?>
+                <div class="item">
+                  <?= get_the_post_thumbnail($postID, 'full') ?>
+                  <div class="item-content">
+                    <div class="main-content">
+                      <div class="meta-category">
+                        <a href="<?= esc_url($category_link); ?>"><span><?= esc_html($category_name); ?></span></a>
+                      </div>
+                      <a href="<?= esc_url($permalink); ?>"><h4><?= esc_html($sliderPost->post_title); ?></h4></a>
+                      <ul class="post-info">
+                        <li><a href="#"><?= esc_html($author_name); ?></a></li>
+                        <li><a href="#"><?= esc_html($post_date); ?></a></li>
+                        <li><a href="#"><?= esc_html($sliderPost->comment_count); ?> Comentarios</a></li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
-                <a href="post-details.html"><h4>Morbi dapibus condimentum</h4></a>
-                <ul class="post-info">
-                  <li><a href="#">Admin</a></li>
-                  <li><a href="#">May 12, 2020</a></li>
-                  <li><a href="#">12 Comments</a></li>
-                </ul>
-              </div>
+              <?php endforeach; ?>
             </div>
           </div>
-          <div class="item">
-            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/banner-item-02.jpg" alt="">
-            <div class="item-content">
-              <div class="main-content">
-                <div class="meta-category">
-                  <span>Nature</span>
-                </div>
-                <a href="post-details.html"><h4>Donec porttitor augue at velit</h4></a>
-                <ul class="post-info">
-                  <li><a href="#">Admin</a></li>
-                  <li><a href="#">May 14, 2020</a></li>
-                  <li><a href="#">24 Comments</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/banner-item-03.jpg" alt="">
-            <div class="item-content">
-              <div class="main-content">
-                <div class="meta-category">
-                  <span>Lifestyle</span>
-                </div>
-                <a href="post-details.html"><h4>Best HTML Templates on TemplateMo</h4></a>
-                <ul class="post-info">
-                  <li><a href="#">Admin</a></li>
-                  <li><a href="#">May 16, 2020</a></li>
-                  <li><a href="#">36 Comments</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/banner-item-04.jpg" alt="">
-            <div class="item-content">
-              <div class="main-content">
-                <div class="meta-category">
-                  <span>Fashion</span>
-                </div>
-                <a href="post-details.html"><h4>Responsive and Mobile Ready Layouts</h4></a>
-                <ul class="post-info">
-                  <li><a href="#">Admin</a></li>
-                  <li><a href="#">May 18, 2020</a></li>
-                  <li><a href="#">48 Comments</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/banner-item-05.jpg" alt="">
-            <div class="item-content">
-              <div class="main-content">
-                <div class="meta-category">
-                  <span>Nature</span>
-                </div>
-                <a href="post-details.html"><h4>Cras congue sed augue id ullamcorper</h4></a>
-                <ul class="post-info">
-                  <li><a href="#">Admin</a></li>
-                  <li><a href="#">May 24, 2020</a></li>
-                  <li><a href="#">64 Comments</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/banner-item-06.jpg" alt="">
-            <div class="item-content">
-              <div class="main-content">
-                <div class="meta-category">
-                  <span>Lifestyle</span>
-                </div>
-                <a href="post-details.html"><h4>Suspendisse nec aliquet ligula</h4></a>
-                <ul class="post-info">
-                  <li><a href="#">Admin</a></li>
-                  <li><a href="#">May 26, 2020</a></li>
-                  <li><a href="#">72 Comments</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+        <?php endif; ?>
     </div>
     <!-- Banner Ends Here -->
 
