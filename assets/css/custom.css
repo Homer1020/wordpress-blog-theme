@@ -99,7 +99,7 @@ ul.page-numbers li span.current {
     padding-bottom: 0;
 }
 
-.about-us p:last-child {
+.about-us .col-lg-12 > p:last-of-type {
     border-bottom: 1px solid #eee;
     padding-bottom: 40px;
 }

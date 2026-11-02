@@ -1,0 +1,23 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "hmtm/info-grid",
+	"version": "0.1.0",
+	"title": "Info Grid",
+	"category": "widgets",
+	"icon": "grid-view",
+	"description": "Un bloque repetidor con elementos personalizables y ancho de columnas de 1 a 12.",
+	"example": {},
+	"supports": {
+		"html": false
+	},
+	"attributes": {
+		"items": {
+			"type": "array",
+			"default": []
+		}
+	},
+	"textdomain": "info-grid",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css"
+}

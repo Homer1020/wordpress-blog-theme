@@ -224,3 +224,10 @@ function hmtm_pagination_anchors( $r, $args ) {
     return $r;
 }
 add_filter( 'paginate_links_output', 'hmtm_pagination_anchors', 10, 2 );
+
+function hmtm_register_blocks() {
+    register_block_type(get_template_directory() . '/build/blocks/hmtm-info-grid');
+    // register_block_type(get_template_directory() . '/build/blocks/mi-nombre-de-bloque');
+}
+
+add_action('init', 'hmtm_register_blocks');
